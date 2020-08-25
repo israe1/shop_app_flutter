@@ -11,3 +11,11 @@ const kSecondaryColor = Color(0xFF979797);
 const kTextColor = Color(0xFF757575);
 
 const KAnimationDuration = Duration(microseconds: 200);
+
+// Form Error
+final RegExp emailValidatorRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]+");
+const String kEmailNullError = "Please Enter your email";
+const String kInvalidEmailError = "Please Enter a valid Email";
+const String kPasswordNullError = "Please Enter your password";
+const String kShortPasswordError = "Password is too short";
+const String kMatchPasswordError = "Passwords don't match";
