@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shop_app_flutter/components/custom_suffix_icon.dart';
 import 'package:shop_app_flutter/components/default_button.dart';
+import 'package:shop_app_flutter/screens/forgot_password/forgot_password_screen.dart';
+import 'package:shop_app_flutter/screens/login_success/login_success_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -39,10 +41,15 @@ class _SignFormState extends State<SignForm> {
               ),
               Text("Remember me"),
               Spacer(),
-              Text(
-                "Forgot password",
-                style: TextStyle(
-                    decoration: TextDecoration.underline
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                },
+                child: Text(
+                  "Forgot password",
+                  style: TextStyle(
+                      decoration: TextDecoration.underline
+                  ),
                 ),
               )
             ],
@@ -57,6 +64,7 @@ class _SignFormState extends State<SignForm> {
               });
               if(_formKey.currentState.validate()){
                 _formKey.currentState.save();
+                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           )
@@ -74,22 +82,27 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             errors.remove(kEmailNullError);
           });
+          return null;
         }
         if(emailValidatorRegExp.hasMatch(value)){
           setState(() {
             errors.remove(kInvalidEmailError);
           });
+          return null;
         }
+
       },
       validator: (value){
         if(value.isEmpty){
           setState(() {
             errors.add(kEmailNullError);
           });
+          return "";
         }else if(!emailValidatorRegExp.hasMatch(value)){
           setState(() {
             errors.add(kInvalidEmailError);
           });
+          return "";
         }
         return null;
       },
@@ -112,11 +125,13 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             errors.remove(kPasswordNullError);
           });
+          return null;
         }
         if(value.length >= 8){
           setState(() {
             errors.remove(kShortPasswordError);
           });
+          return null;
         }
       },
       validator: (value){
@@ -124,10 +139,12 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             errors.add(kPasswordNullError);
           });
+          return "";
         }else if(value.length < 8){
           setState(() {
             errors.add(kShortPasswordError);
           });
+          return "";
         }
         return null;
       },
